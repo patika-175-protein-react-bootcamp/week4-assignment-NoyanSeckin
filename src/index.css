@@ -1,0 +1,83 @@
+body{
+  background-color: #2D2D2D;
+}
+.header{
+  font-family: 'Handlee';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 82px;
+  line-height: 109px;
+  color: #FF0000;
+  text-decoration: underline;
+}
+
+.sub-header{
+  font-family: 'Handlee';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 64px;
+  line-height: 85px;
+  color: #fff;
+}
+.sub-header2{
+  font-family: 'Handlee';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 48px;
+  line-height: 64px;
+}
+.start-btn{
+  background: none;
+  border: none;
+  color: #fff;
+  font-family: 'Handlee';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 64px;
+  line-height: 85px;
+  margin-top: 1rem;
+  z-index: 2;
+}
+
+.start-btn:hover{
+  cursor: pointer;
+}
+
+.vector-img{
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+}
+
+.vector-img:hover{
+  cursor: pointer;
+}
+/* Shortcuts */
+.text-center{
+  text-align: center;
+}
+
+.position-relative{
+  position: relative;
+}
+.text-white{
+  color: #fff;
+}
+
+.container{
+  width: 100%;
+  display: flex;
+}
+
+.col-6{
+  width: 48%;
+}
+
+.d-flex{
+  display: flex;
+}
+
+.space-between{
+justify-content: space-between;
+}
