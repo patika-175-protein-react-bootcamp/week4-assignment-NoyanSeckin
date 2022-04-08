@@ -25,6 +25,7 @@ body{
   font-weight: 400;
   font-size: 48px;
   line-height: 64px;
+  margin: 32px 0 !important;
 }
 .start-btn{
   background: none;
@@ -53,6 +54,17 @@ body{
 .vector-img:hover{
   cursor: pointer;
 }
+
+.question-li{
+  font-family: 'Handlee';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 52px;
+  line-height: 69px;
+  color: #FFFFFF;
+  list-style: none;
+}
+
 /* Shortcuts */
 .text-center{
   text-align: center;
@@ -77,7 +89,17 @@ body{
 .d-flex{
   display: flex;
 }
+.flex-col{
+  flex-direction: column;
+}
 
 .space-between{
-justify-content: space-between;
+  justify-content: space-between;
+}
+
+.align-center{
+  align-items: center;
+}
+.justify-center{
+  justify-content: center;
 }

@@ -1,13 +1,15 @@
 import {React, useContext, useState, useEffect} from 'react'
 import TourContext from '../context/TourContext'
 import Finishpage from './FinishPage';
-export default function QuestionsPage({setIsFinishPage}) {
+
+export default function QuestionsPage() {
   const tourContext = useContext(TourContext);
   
   const [questionsActive, setQuestionsActive] = useState(true)
   const [question, setQuestion] = useState("")
   const [questions, setQuestions] = useState([]);
   const [correctTotal, setCorrectTotal] = useState(0);
+
   const [falseAnswer1, setFalseAnswer1] = useState(null);
   const [falseAnswer2, setFalseAnswer2] = useState(null);
   const [correctAnswer, setCorrectAnswer] = useState(null);
@@ -16,18 +18,20 @@ export default function QuestionsPage({setIsFinishPage}) {
     generateQuestions();
   }, [])
   useEffect(()=>{
-    if(questions.length === 8){
-      setIsFinishPage(true);
+    if(questions.length === 10){
+      setTimeout(() => {
+        setQuestionsActive(false);
+      }, 1000);
     }
   }, [questions])
   
   const generateQuestions = () => {
     const randomNum1 = Math.floor(Math.random() * 10);
     const randomNum2 = Math.floor(Math.random() * 10);
-
-    setCorrectAnswer(randomNum1 * randomNum2);
     setQuestion(`${randomNum1} x ${randomNum2}`);
-    setQuestions(questions => [...questions, question]);
+    let correctAnswer = randomNum1 * randomNum2;
+    setCorrectAnswer(correctAnswer);
+    // setQuestions(questions => [...questions, `${question} = ${correctAnswer}`]);
 
     let falseAnswer1 = randomNum1 - 1 * randomNum2;
     let falseAnswer2 = randomNum1 + 1 * randomNum2;
@@ -53,28 +57,25 @@ export default function QuestionsPage({setIsFinishPage}) {
   const isSquare = (n) => {
     return Math.sqrt(n) % 1 === 0;
 };
-  function handleAnswer(correct, correctAnswer){
-    // change body color accordingly
-    // if answer true increase score 
-    // skip to next question
-    // 
+  function handleAnswer(isCorrect, answer){
     const timeout = 1000;
     let bodyStyle= document.body.style;
-    if(correct){
+
+    if(isCorrect){
       bodyStyle.background = "#00BF63";
-      const squareRootValue = Math.sqrt(correctAnswer);
-      
+      setQuestions(questions => ([...questions, `${question} = ${correctAnswer} ✓ `]));      
+      const squareRootValue = Math.sqrt(answer);
       setTimeout(() => {
       // add earned points to state value, check if square root first
-        isSquare(correctAnswer) ? setScore(score + squareRootValue) 
+        isSquare(answer) ? setScore(score + squareRootValue) 
         : setScore(score + Math.ceil(squareRootValue));
 
         setCorrectTotal(correctTotal + 1);
       }, timeout);
-    
     } 
-    else if(!correct){
+    else if(!isCorrect){
       bodyStyle.background = "#FA0000";
+      setQuestions(questions => ([...questions, `${question} = ${correctAnswer} X `]));
     }
 
     setTimeout(() => {
@@ -82,30 +83,31 @@ export default function QuestionsPage({setIsFinishPage}) {
       generateQuestions();
     }, timeout);
   }
- 
+  const renderPage = () =>{
+    return(
+      <div className='text-white container'>
+        <div className="col-6">
+          <h3>svg</h3>
+          Current Question: {question}
+        </div>
+        <div className="col-6">
+          <div className='d-flex space-between'>
+            <p onClick={generateQuestions} className='sub-header2'>Score: {score} </p>
+            <p className='sub-header2'>Tour: {tourContext}</p>
+            <p className='sub-header2'>Questions: {correctTotal}/{questions.length} </p>
+           </div>
+            <div>
+             {renderAnswers()}
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   return (
-   <div>
-      <div className='text-white container'>
-      <div className="col-6">
-        <h3>svg</h3>
-        Current Question: {question}
-      </div>
-      <div className="col-6">
-        <div className='d-flex space-between'>
-          <p onClick={generateQuestions} className='sub-header2'>Score: {score} </p>
-          <p className='sub-header2'>Tour: {tourContext}</p>
-          <p className='sub-header2'>Questions: {correctTotal}/{questions.length} </p>
-        </div>
-        <div>
-          {/* {generateQuestions()} */}
-          {renderAnswers()}
-          {/* <ul>
-            {questions.map(question=>(<li>{question}</li>))}
-          </ul> */}
-        </div>
-      </div>
+    <div>
+      {questionsActive && renderPage()}
+      {!questionsActive && <Finishpage point={score} questions={questions} correctAnswers={correctTotal}></Finishpage>}
     </div>
-   </div>
   )
 }

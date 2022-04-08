@@ -3,6 +3,7 @@ import {useContext, useState} from "react"
 import StartPage from "./StartPage";
 import QuestionsPage from "./QuestionsPage"
 import FinishPage from "./FinishPage"
+
 function App() {
 
   const context = useContext(TourContext);
@@ -11,22 +12,16 @@ function App() {
   const [tour, setTour] = useState(0);
 
   const renderPages = ()=> {
-    if(isFinishPage){
-      return ( <FinishPage/>)
-    }
-    else if(!gameIsActive){
+    if(!gameIsActive){
       return (<StartPage setGameIsActive={setGameIsActive}/>)
     }
     else if(gameIsActive){
-      return (<QuestionsPage setIsFinishPage={setIsFinishPage}/>)
+      return (<QuestionsPage/>)
     }
   }
   return (
     <div>
       {renderPages()}
-      {/* <TourContext.Provider value={tour}>
-        <QuestionsPage></QuestionsPage>
-      </TourContext.Provider> */}
     </div>
   );
 }
