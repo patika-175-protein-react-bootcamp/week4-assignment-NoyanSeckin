@@ -75,6 +75,59 @@ body{
 }
 
 
+
+.answer-tags{
+  font-family: 'Handlee';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 90px;
+  line-height: 120px;
+  position: relative;
+  margin: 40px 0;
+  background: none;
+  border: none;
+  color: #fff;
+  z-index: 2;
+}
+
+.answer-image{
+  width: 203px;
+  height: 178px;
+  position: absolute;
+  left: -5rem;
+  bottom: -1rem;
+}
+
+.answer-images{
+  width: 203px;
+  height: 178px;
+  position: absolute;
+  left: -4rem;
+  bottom: -1rem;
+}
+
+.answer-images:hover{
+  cursor: pointer;
+}
+
+.current-question{
+  font-family: 'Handlee';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 128px;
+  line-height: 171px;
+  position: relative;
+  margin-left: 7rem;
+  margin-top: 12rem;
+} 
+
+.svg-file{
+  position: absolute;
+  left: -3rem;
+  top: -100%;
+}
+
+
 .vector-img:hover{
   cursor: pointer;
 }
@@ -127,3 +180,28 @@ body{
 .justify-center{
   justify-content: center;
 }
+
+.as-start{
+  align-self: flex-start;
+}
+
+.as-center{
+  align-self: center;
+}
+
+.as-end{
+  align-self: end;
+}
+
+.ml{
+  margin-left: 3rem !important;
+}
+
+.ml-lg{
+  margin-left: 8rem !important;
+}
+
+.mx-auto{
+  margin: 0 auto;
+}
+
