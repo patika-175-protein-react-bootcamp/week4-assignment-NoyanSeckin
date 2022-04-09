@@ -1,22 +1,28 @@
 import TourContext from "../context/TourContext";
-import {useContext, useState} from "react"
+import {React, useContext, useState, useEffect} from "react"
 import StartPage from "./StartPage";
 import QuestionsPage from "./QuestionsPage"
-import FinishPage from "./FinishPage"
+
+// export const TourContext = React.createContext();
 
 function App() {
-
-  const context = useContext(TourContext);
   const [gameIsActive, setGameIsActive] = useState(false);
   const [isFinishPage, setIsFinishPage] = useState(false);
-  const [tour, setTour] = useState(0);
+  const [tour, setTour] = useState(31);
+  useEffect(()=>{
+    setTour(tour + 1)
+  }, [])
 
   const renderPages = ()=> {
     if(!gameIsActive){
       return (<StartPage setGameIsActive={setGameIsActive}/>)
     }
     else if(gameIsActive){
-      return (<QuestionsPage/>)
+      return (
+          <TourContext.Provider value={tour} >
+            <QuestionsPage/>
+          </TourContext.Provider>
+      )
     }
   }
   return (

@@ -1,6 +1,18 @@
-import React from 'react';
+import {React, useEffect} from 'react';
 
 const Finishpage = ({correctAnswers, questions, point}) => {
+  // Add these three parameters to local storage
+  useEffect(()=>{
+    const existingQuestions = JSON.parse(localStorage.getItem("total-questions"))
+    localStorage.setItem("total-questions", JSON.stringify(existingQuestions + questions?.length));
+
+    const existingPoints = JSON.parse(localStorage.getItem("total-point"));
+    localStorage.setItem("total-point", JSON.stringify(existingPoints + point));
+
+    const existingAnswers = JSON.parse(localStorage.getItem("correct-answers"));
+    localStorage.setItem("correct-answers", JSON.stringify(existingAnswers + correctAnswers))
+  }, [])
+
   const renderPage = () => {
     return(
       <div className="container">
