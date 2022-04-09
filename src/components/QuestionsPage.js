@@ -14,6 +14,7 @@ export default function QuestionsPage({setGameIsActive, setTour}) {
   const [correctAnswer, setCorrectAnswer] = useState(null);
   const [buttonsActive, setButtonsActive] = useState(false);
   const [score, setScore] = useState(0);
+  const [correctImage, setCorrectImage] = useState(require('../images/Vector10.png'))
   useEffect(() =>{
     generateQuestions();
   }, [])
@@ -49,7 +50,7 @@ export default function QuestionsPage({setGameIsActive, setTour}) {
       <div className='col-6 mx-auto d-flex flex-col'> 
         <button disabled={buttonsActive} className='answer-tags as-start' onClick={()=> handleAnswer(true, correctAnswer)}>
           {correctAnswer}
-          <img className='answer-images' src={require('../images/Vector10.png')} alt="" />
+          <img className='correct-image answer-images' src={correctImage} alt="" />
         </button>
         <button disabled={buttonsActive} className='answer-tags as-end' onClick={()=> handleAnswer(false)}>
           {falseAnswer1} 
@@ -67,9 +68,9 @@ export default function QuestionsPage({setGameIsActive, setTour}) {
 };
   function handleAnswer(isCorrect, answer){
     let bodyStyle= document.body.style;
-
     if(isCorrect){
       bodyStyle.background = "#00BF63";
+      setCorrectImage(require('../images/dark-circle.png'))
       setQuestions(questions => ([...questions, `${question} = ${correctAnswer} ✓ `]));  
 
       const squareRootValue = Math.sqrt(answer);
@@ -77,11 +78,13 @@ export default function QuestionsPage({setGameIsActive, setTour}) {
       isSquare(answer) ? setScore(score + squareRootValue) : setScore(score + Math.ceil(squareRootValue));
 
       setCorrectTotal(correctTotal + 1);
+      
 
     } 
     else if(!isCorrect){
       bodyStyle.background = "#FA0000";
       setQuestions(questions => ([...questions, `${question} = ${correctAnswer} X `]));
+      setCorrectImage(require('../images/green-circle.png'))
     }
 
     // deactivate and activate buttons
@@ -92,6 +95,7 @@ export default function QuestionsPage({setGameIsActive, setTour}) {
       bodyStyle.background = "#2D2D2D";
       generateQuestions();
       setButtonsActive(false);
+      setCorrectImage(require('../images/Vector10.png'))
     }, timeout);   
   }
   const renderPage = () =>{
