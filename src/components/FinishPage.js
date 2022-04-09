@@ -30,8 +30,6 @@ const Finishpage = ({correctAnswers, questions, point, setGameIsActive, setTour}
           <button onClick={restartPage} className='restart-btn position-relative'>Restart
             <img onClick={()=> document.querySelector(".restart-btn").click()} className='vector-img-2' src={require('../images/Vector10.png')} alt="" />
           </button>
-        
-          
         </div>
         <div className="col-6 text-center">
           <h1 className='header'>All Question</h1>

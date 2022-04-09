@@ -1,7 +1,6 @@
 import {React, useContext, useState, useEffect} from 'react'
 import TourContext from '../context/TourContext'
 import Finishpage from './FinishPage';
-// import SVG from '../images/Union.js'
 export default function QuestionsPage({setGameIsActive, setTour}) {
   const tourContext = useContext(TourContext);
   
@@ -32,12 +31,11 @@ export default function QuestionsPage({setGameIsActive, setTour}) {
     setQuestion(`${randomNum1} x ${randomNum2}`);
     let correctAnswer = randomNum1 * randomNum2;
     setCorrectAnswer(correctAnswer);
-    // setQuestions(questions => [...questions, `${question} = ${correctAnswer}`]);
 
     let falseAnswer1 = randomNum1 - 1 * randomNum2;
     let falseAnswer2 = randomNum1 + 1 * randomNum2;
     if(falseAnswer1 === falseAnswer2){
-      falseAnswer2 = randomNum1 * randomNum2;
+      falseAnswer2 = randomNum1 - 1 * randomNum2;
     }else if(falseAnswer1 === falseAnswer2){
       falseAnswer1 = randomNum1 + 1 * randomNum2
     }
@@ -68,7 +66,6 @@ export default function QuestionsPage({setGameIsActive, setTour}) {
     return Math.sqrt(n) % 1 === 0;
 };
   function handleAnswer(isCorrect, answer){
-    const timeout = 3000;
     let bodyStyle= document.body.style;
 
     if(isCorrect){
@@ -77,13 +74,9 @@ export default function QuestionsPage({setGameIsActive, setTour}) {
 
       const squareRootValue = Math.sqrt(answer);
       // add earned points to state value, check if square root first
-      isSquare(answer) ? setScore(score + squareRootValue) 
-        : setScore(score + Math.ceil(squareRootValue));
+      isSquare(answer) ? setScore(score + squareRootValue) : setScore(score + Math.ceil(squareRootValue));
 
-        setCorrectTotal(correctTotal + 1);
-      setTimeout(() => {
-        
-      }, timeout);
+      setCorrectTotal(correctTotal + 1);
 
     } 
     else if(!isCorrect){
@@ -91,8 +84,10 @@ export default function QuestionsPage({setGameIsActive, setTour}) {
       setQuestions(questions => ([...questions, `${question} = ${correctAnswer} X `]));
     }
 
+    // deactivate and activate buttons
     setButtonsActive(true);
 
+    const timeout = 3000;
     setTimeout(() => {
       bodyStyle.background = "#2D2D2D";
       generateQuestions();
