@@ -3,15 +3,12 @@ import {React, useContext, useState, useEffect} from "react"
 import StartPage from "./StartPage";
 import QuestionsPage from "./QuestionsPage"
 
-// export const TourContext = React.createContext();
+// export const TourContext = React?.createContext();
 
 function App() {
   const [gameIsActive, setGameIsActive] = useState(false);
   const [isFinishPage, setIsFinishPage] = useState(false);
-  const [tour, setTour] = useState(31);
-  useEffect(()=>{
-    setTour(tour + 1)
-  }, [])
+  const [tour, setTour] = useState(1);
 
   const renderPages = ()=> {
     if(!gameIsActive){
@@ -20,7 +17,7 @@ function App() {
     else if(gameIsActive){
       return (
           <TourContext.Provider value={tour} >
-            <QuestionsPage/>
+            <QuestionsPage setTour={setTour} setGameIsActive={setGameIsActive} />
           </TourContext.Provider>
       )
     }

@@ -1,8 +1,8 @@
 import {React, useContext, useState, useEffect} from 'react'
 import TourContext from '../context/TourContext'
 import Finishpage from './FinishPage';
-
-export default function QuestionsPage() {
+// import { TourContext } from './App';
+export default function QuestionsPage({setGameIsActive, setTour}) {
   const tourContext = useContext(TourContext);
   
   const [questionsActive, setQuestionsActive] = useState(true)
@@ -107,7 +107,7 @@ export default function QuestionsPage() {
   return (
     <div>
       {questionsActive && renderPage()}
-      {!questionsActive && <Finishpage point={score} questions={questions} correctAnswers={correctTotal}></Finishpage>}
+      {!questionsActive && <Finishpage point={score} questions={questions} correctAnswers={correctTotal} setGameIsActive={setGameIsActive} setTour={setTour}></Finishpage>}
     </div>
   )
 }
