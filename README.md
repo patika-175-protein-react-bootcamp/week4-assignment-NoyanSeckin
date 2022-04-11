@@ -1,6 +1,6 @@
 # Math Game
 
-#### Available at: https://app.netlify.com/sites/math-game-bootcamp
+#### Available at: https://math-game-bootcamp.netlify.app/
 
 ## Available Scripts
 
