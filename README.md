@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# Math Game
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+#### Available at: https://app.netlify.com/sites/math-game-bootcamp
 
 ## Available Scripts
 

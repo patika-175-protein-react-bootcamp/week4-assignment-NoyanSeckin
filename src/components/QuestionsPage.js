@@ -15,6 +15,7 @@ export default function QuestionsPage({setGameIsActive, setTour}) {
   const [buttonsActive, setButtonsActive] = useState(false);
   const [score, setScore] = useState(0);
   const [correctImage, setCorrectImage] = useState(require('../images/Vector10.png'))
+
   useEffect(() =>{
     generateQuestions();
   }, [])
@@ -44,24 +45,46 @@ export default function QuestionsPage({setGameIsActive, setTour}) {
     setFalseAnswer1(Math.abs(falseAnswer1))
     setFalseAnswer2(Math.abs(falseAnswer2))
   }
-
+  function shuffle(array) {
+    let currentIndex = array.length,  randomIndex;
+  
+    // While there remain elements to shuffle.
+    while (currentIndex != 0) {
+  
+      // Pick a remaining element.
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+  
+      // And swap it with the current element.
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex], array[currentIndex]];
+    }
+  
+    return array;
+  }
+  let mixArray = [0, 1, 2];
+  const [numsArray, setNumsArray] = [correctAnswer, falseAnswer1, falseAnswer2];
+  // let newOrder = [numsArray.at(mixArray[0]), numsArray.at(mixArray[1]), numsArray.at(mixArray[2])];
   const renderAnswers = () => {
+    console.log(numsArray);
+    shuffle(mixArray);
     return(
       <div className='col-6 mx-auto d-flex flex-col'> 
-        <button disabled={buttonsActive} className='answer-tags as-start' onClick={()=> handleAnswer(true, correctAnswer)}>
+        <button disabled={buttonsActive} className='answer-tags as-start' onClick={()=> handleAnswer(newOrder[0] === correctAnswer && true, newOrder[0] === correctAnswer && correctAnswer)}>
           {correctAnswer}
           <img className='correct-image answer-images' src={correctImage} alt="" />
         </button>
-        <button disabled={buttonsActive} className='answer-tags as-end' onClick={()=> handleAnswer(false)}>
+        <button disabled={buttonsActive} className='answer-tags as-end' onClick={()=> handleAnswer(newOrder[1] === correctAnswer && true, newOrder[1] === correctAnswer && correctAnswer)}>
           {falseAnswer1} 
           <img className='answer-images' src={require('../images/Vector10.png')} alt="" />
         </button>
-        <button disabled={buttonsActive} className='answer-tags as-center' onClick={()=> handleAnswer(false)}>
+        <button disabled={buttonsActive} className='answer-tags as-center' onClick={()=> handleAnswer(newOrder[2] === correctAnswer && true, newOrder[2] === correctAnswer && correctAnswer)}>
           {falseAnswer2}
           <img className='answer-images' src={require('../images/Vector10.png')} alt="" />
         </button>
       </div>
     )
+    
   }
   const isSquare = (n) => {
     return Math.sqrt(n) % 1 === 0;
@@ -78,7 +101,6 @@ export default function QuestionsPage({setGameIsActive, setTour}) {
       isSquare(answer) ? setScore(score + squareRootValue) : setScore(score + Math.ceil(squareRootValue));
 
       setCorrectTotal(correctTotal + 1);
-      
 
     } 
     else if(!isCorrect){
@@ -91,12 +113,15 @@ export default function QuestionsPage({setGameIsActive, setTour}) {
     setButtonsActive(true);
 
     const timeout = 3000;
+    setCorrectImage(require('../images/Vector10.png'))
     setTimeout(() => {
       bodyStyle.background = "#2D2D2D";
-      generateQuestions();
       setButtonsActive(false);
-      setCorrectImage(require('../images/Vector10.png'))
     }, timeout);   
+
+    setTimeout(() => {
+      generateQuestions();
+    }, 4000);
   }
   const renderPage = () =>{
     return(

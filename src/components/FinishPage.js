@@ -35,6 +35,15 @@ const Finishpage = ({correctAnswers, questions, point, setGameIsActive, setTour}
           <h1 className='header'>All Question</h1>
           <ul>
             {questions.map((question, index) => question && <li className='question-li' key={index}>{question}</li>)}
+            {/* {questions.map((question, index)=> {
+              if(question){
+                
+                return (
+                 <li className='question-li' key={index}>{question}</li>
+                )
+              }
+                
+           })} */}
           </ul>
         </div>
       </div>
